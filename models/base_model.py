@@ -7,15 +7,24 @@ class BaseModel:
     BaseModel class
     """
 
-    def __init__(self):
-        now = datetime.datetime.now()
-        self.id = str(uuid.uuid4())
-        self.created_at = now
-        self.updated_at = now
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == '__class__':
+                    continue
+                if key == 'created_at' or key == 'updated_at':
+                    value = datetime.datetime.strptime(
+                        value, '%Y-%m-%dT%H:%M:%S.%f')
+                setattr(self, key, value)
+        else:
+            now = datetime.datetime.now()
+            self.id = str(uuid.uuid4())
+            self.created_at = now
+            self.updated_at = now
 
     def __str__(self):
         class_name = type(self).__name__
-        return f'[<{class_name}>] (<{self.id}>) <{self.__dict__}>'
+        return f'[{class_name}] ({self.id}) {self.__dict__}'
 
     def save(self):
         self.updated_at = datetime.datetime.now()
