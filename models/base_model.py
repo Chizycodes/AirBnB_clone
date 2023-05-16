@@ -1,10 +1,18 @@
+#!/usr/bin/python3
+"""Defines the BaseModel class"""
+import models
 import uuid
 import datetime
 
 
 class BaseModel:
     """
-    BaseModel class
+    Defines the BaseModel class.
+
+    Attributes:
+        id: The BaseModel id.
+        created_id: The datetime at creation.
+        updated_id: The datetime of last update.
     """
 
     def __init__(self, *args, **kwargs):
@@ -21,6 +29,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = now
             self.updated_at = now
+            models.storage.new(self)
 
     def __str__(self):
         class_name = type(self).__name__
@@ -28,6 +37,8 @@ class BaseModel:
 
     def save(self):
         self.updated_at = datetime.datetime.now()
+        models.storage.new(self)
+        models.storage.save()
 
     def to_dict(self):
         result_dict = self.__dict__
