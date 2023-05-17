@@ -31,16 +31,16 @@ class HBNBCommand(cmd.Cmd):
         """Ignore empty spaces."""
         pass
 
-    def quit(self, line):
+    def do_quit(self, line):
         """Quit command to exit the program."""
         return True
 
-    def EOF(self, line):
+    def do_EOF(self, line):
         """EOF signal to exit the program."""
         print("")
         return True
 
-    def create(self, line):
+    def do_create(self, line):
         """Usage: create <class> <key 1>=<value 2> <key 2>=<value 2> ...
         Create a new class instance with given keys/values and print its id.
         """
@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
         except NameError:
             print("** class doesn't exist **")
 
-    def show(self, line):
+    def do_show(self, line):
         """Prints the string representation of an instance
         Exceptions:
             SyntaxError: when there is no args given
@@ -105,7 +105,7 @@ class HBNBCommand(cmd.Cmd):
         except KeyError:
             print("** no instance found **")
 
-    def destroy(self, line):
+    def do_destroy(self, line):
         """Deletes an instance based on the class name and id
         Exceptions:
             SyntaxError: when there is no args given
@@ -137,7 +137,7 @@ class HBNBCommand(cmd.Cmd):
         except KeyError:
             print("** no instance found **")
 
-    def all(self, line):
+    def do_all(self, line):
         """Usage: all or all <class> or <class>.all()
         Display string representations of all instances of a given class.
         If no class is specified, displays all instantiated objects."""
@@ -156,7 +156,7 @@ class HBNBCommand(cmd.Cmd):
         except NameError:
             print("** class doesn't exist **")
 
-    def update(self, line):
+    def do_update(self, line):
         """Updates an instanceby adding or updating attribute
         Exceptions:
             SyntaxError: when there is no args given
